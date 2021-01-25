@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import TableExamplePagination from './Components/Table'
 import React from 'react'
+let cors = 'https://cors-anywhere.herokuapp.com/'
 class App extends React.Component{
 
   constructor(){
@@ -24,7 +25,7 @@ class App extends React.Component{
       let clues = await res.json()
       console.log('clues',clues)
       while(clues.length!==5){
-        apiURL = 'http://jservice.io/api/clues?category=' + Math.floor(Math.random() * Math.floor(18418))
+        apiURL = 'https://jservice.io/api/clues?category=' + Math.floor(Math.random() * Math.floor(18418))
         res = await fetch(apiURL)
         clues = await res.json()
       }
