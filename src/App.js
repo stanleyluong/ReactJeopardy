@@ -19,7 +19,7 @@ class App extends React.Component{
     let categories = this.state.categories
     
     while(categories.length<5){
-      let apiURL = 'http://jservice.io/api/clues?category=' + Math.floor(Math.random() * Math.floor(18418))
+      let apiURL = 'https://jservice.io/api/clues?category=' + Math.floor(Math.random() * Math.floor(18418))
       let res = await fetch(apiURL)
       let clues = await res.json()
       console.log('clues',clues)
