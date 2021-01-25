@@ -1,25 +1,49 @@
 import logo from './logo.svg';
 import './App.css';
+import TableExamplePagination from './Components/Table'
+import React from 'react'
+class App extends React.Component{
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  constructor(){
+    super()
+    this.state = {
+      categories: []
+    }
+  }
+
+  componentDidMount(){
+    this.fetchClues()
+  }
+
+  fetchClues = async() => {
+    let categories = this.state.categories
+    
+    while(categories.length<5){
+      let apiURL = 'http://jservice.io/api/clues?category=' + Math.floor(Math.random() * Math.floor(18418))
+      let res = await fetch(apiURL)
+      let clues = await res.json()
+      console.log('clues',clues)
+      while(clues.length!==5){
+        apiURL = 'http://jservice.io/api/clues?category=' + Math.floor(Math.random() * Math.floor(18418))
+        res = await fetch(apiURL)
+        clues = await res.json()
+      }
+      categories.push(clues)
+    }
+    this.setState({
+      categories: categories
+    })
+    console.table(this.state.categories)
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <TableExamplePagination categories={this.state.categories}/>
+      </div>
+   );
+  }
+  
 }
 
 export default App;
